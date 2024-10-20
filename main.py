@@ -3,7 +3,7 @@ import random
 
 
 class Student:
-    def __init__(self, name, age):
+        def __init__(self, name, age):
         # public prop
         self.name = name
         self.age = age
@@ -59,11 +59,20 @@ class Student:
             self.end_of_day()
             self.is_alive()
 
+
+class Pet:
+        def __init__(self, name, age, type):
+        # public prop
+        self.name()
+
+
+
 nick = Student("Nick",20)
 for day in range(365):
     if nick.alive == False:
         break
     nick.live(day)
+
 
 
 st1 = Student("mark", 15)

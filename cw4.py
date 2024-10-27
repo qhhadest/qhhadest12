@@ -21,6 +21,9 @@ class Human:
     def show_info(self):
         print(f"name:{self.name}\nage:{self.age}")
 
+    def get_id(self):
+        return self.__id
+
 class Worker(Human):
     def __init__(self, name, age, salery):
         super().__init__(name, age)
@@ -48,3 +51,20 @@ st.show_info()
 humans = [worker, st]
 for human in humans:
     print(human.name)
+
+
+class Computer:
+    def calculator(self):
+        print("calculator")
+
+class Display:
+    def display(self):
+        print("display the image")
+
+class SmartPhone(Display, Computer):
+    pass
+
+ipone = SmartPhone()
+ipone.display()
+ipone.calculator()
+ipone.show()

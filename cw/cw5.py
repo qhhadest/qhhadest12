@@ -65,7 +65,10 @@ print(sys.executable)
 
 # requests
 
-import turtle
+import requests
 
-print(turtle.forward(6))
+print(inspect.ismodule(requests))
+print(callable(requests))
 
+print(sys.version(requests))
+print(hasattr.__name__(requests))

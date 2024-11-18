@@ -45,3 +45,5 @@ if temperature_regex:
 else:
     print("Температуру не знайдено на веб-сторінці.")
 
+
+

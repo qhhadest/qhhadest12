@@ -25,6 +25,10 @@ class DatabaseHandler:
         self.cursor.execute('INSERT INTO top_songs (title, artist) VALUES (?, ?)', (title, artist))
         self.connection.commit()
 
+    def song_exists(self, title, artist):
+        self.cursor.execute('SELECT COUNT(*) FROM top_songs WHERE title = ? AND artist = ?', (title, artist))
+        return self.cursor.fetchone()[0] > 0
+
     def fetch_data(self):
         self.cursor.execute('SELECT * FROM top_songs')
         return self.cursor.fetchall()
@@ -77,11 +81,12 @@ class UserInterface:
         for title, artist in self.popular_songs:
             self.db_handler.insert_data(title, artist)
         print("Пісні були успішно додані до бази даних.")
+
     def display_paginated_data(self, page_number):
         offset = (page_number - 1) * self.page_size
         data = self.db_handler.fetch_data_paginated(self.page_size, offset)
-        for row in data:
-            print(f"{row[0]}. {row[1]} - {row[2]}")
+        for idx, row in enumerate(data, start=offset + 1):
+            print(f"{idx}. {row[1]}")
 
 
     def run(self):
@@ -93,11 +98,11 @@ class UserInterface:
                 self.db_handler.insert_data(title, artist)
             print("Дані були успішно збережені в базу даних.")
             self.add_additional_songs()
-
             print("Виведення збережених даних з бази даних:")
             data = self.db_handler.fetch_data()
-            for row in data:
-                print(f"{row[0]}. {row[1]} - {row[2]}")
+            unique_songs = {(row[1], row[2]) for row in data}
+            for idx, (title, artist) in enumerate(unique_songs, start=1):
+                print(f"{idx}. {title}")
 
             self.display_paginated_data(1)
 
